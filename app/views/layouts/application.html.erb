@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>家事×バトル</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <div class="header-logo">
+        <% if @current_user %>
+          <%= link_to("家事×バトル", "/posts/index") %>
+        <% else %>
+          <%= link_to("家事×バトル", "/") %>
+        <% end %>
+      </div>
+
+      <ul class="header-menus">
+
+      <% if @current_user %>
+      <li>
+      <%= link_to("マイページ", "/users/#{@current_user.id}") %>
+      </li>
+
+      <li class="hederlist"">
+      <% @firstnames.each do |firstname| %>
+        <%if session[:firstname_id].to_i==firstname.id.to_i%>
+          <%= link_to("☑︎#{firstname.name}","/firstnames/#{firstname.id}/select",{method: "post"}) %>
+        <%else%>
+          <%= link_to("□#{firstname.name}","/firstnames/#{firstname.id}/select",{method: "post"})%>
+        <%end%>
+      <% end %>
+      </li>
+
+      
+      <li>
+        <%= link_to("家事一覧", "/posts/index") %>
+      </li>
+      <li>
+        <%= link_to("家事作成", "/posts/new") %>
+      </li>
+      <li>
+        <%= link_to("ログアウト","/logout",{method: :post})%>
+      </li>
+
+      <li>
+      <table>
+        <tr>
+          <td><%= button_to '<', { controller: 'application', action: 'month'}, { method: :get,params: {count: -1} ,class: "btn btn-info"} %></td>
+          <td><%= session[:month].in_time_zone('Tokyo').strftime("%Y年%-m月") %></td>
+          <td><%= button_to '>', { controller: 'application', action: 'month'}, { method: :get,params: {count: 1} ,class: "btn btn-info"} %></td>
+          <td><%= button_to '今月', { controller: 'application', action: 'month'}, { method: :get,params: {count: "今月"} ,class: "btn btn-info"} %></td>
+          <td><%= button_to '全期間', { controller: 'application', action: 'month'}, { method: :get,params: {count: "全期間"} ,class: "btn btn-info"} %></td>
+
+        </tr>
+      </table>
+      </li>
+      
+
+
+    <% else %>
+      <li>
+        <%= link_to("家事×バトルとは", "/about") %>
+      </li>
+      <li>
+        <%= link_to("新規登録", "/signup") %>
+      </li>
+      <li>
+        <%= link_to("ログイン", "/login") %>
+      </li>
+      
+
+
+    <% end %>
+
+
+
+      </ul>
+    </header>
+    <% if flash[:notice]%>
+      <div class="flash">
+        <%= flash[:notice]%>
+      </div>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>

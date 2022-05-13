@@ -1,0 +1,52 @@
+<div class="main user-show">
+  <div class="container">
+    <div class="container">
+      <h1 class="form-heading">マイページ</h1>
+        <div class="form">
+          <div class="form-body">
+          <p><%= link_to("#{@user.family}家", "/users/#{@user.id}/edit") %></p>
+          <p><%= link_to(@user.email, "/users/#{@user.id}/edit") %></p>
+          </div>
+        </div>
+    </div>
+  
+    <h1 class="form-heading">家族一覧</h1>
+
+      <% @firstnames.each do |firstname| %>
+        <div class="form">
+
+        <div class="form-body">
+
+        <p>
+          <%if session[:firstname_id].to_i==firstname.id.to_i%>
+            <div class="select_user">
+              <div class=check>☑︎</div>
+              <div class=checklink><%= link_to(firstname.name,"/firstnames/#{firstname.id}/select",{method: "post"}) %></div>
+            </div>
+          <%else%>
+            <div class=non_select_user>
+              <div class=checksikaku>□</div>
+              <div class=checklink><%= link_to(firstname.name,"/firstnames/#{firstname.id}/select",{method: "post"})%></div>
+            </div>
+          <%end%>
+          
+          <%= link_to("･･･", "/firstnames/#{firstname.id}/#{@user.id}/about") %>
+          point
+
+          <!-- できれば以下の行をクラスメソッドにしたい。しかfirstname.メソッドでしてみたらエラーが出たので諦めた -->
+          <%= Doit.where(firstname_id:firstname.id,created_at:session[:month].in_time_zone.all_month).sum(:post_point)%>
+        </p>  
+        </div>
+        </div>
+      <% end %>
+
+      <%= button_to 'ユーザー追加', { controller: 'firstnames', action: 'new' }, { method: :get,params: {id: @user.id} ,class: "btn btn-info"} %>
+
+      <%= bar_chart @graph, width: "800px", height: "500px" %>
+
+      
+    </div>
+
+    
+</div>
+

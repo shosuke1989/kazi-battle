@@ -1,0 +1,54 @@
+<div class="main posts-index">
+  <div class="container">
+
+<table>
+  <tr>
+    <td><%= button_to '<', { controller: 'posts', action: 'index' }, { method: :get,params: {count: -1, day: @time} ,class: "btn btn-info"} %></td>
+    <td><%= @time.in_time_zone('Tokyo').strftime("%Y年%-m月%-d日") %></td>
+    <td><%= button_to '>', { controller: 'posts', action: 'index' }, { method: :get,params: {count: 1, day: @time} ,class: "btn btn-info"} %></td>
+  </tr>
+</table>
+
+
+
+
+
+    
+<%= debug session[:month] %>
+<%= debug flash[:day] %>
+<%= debug params[:day] %>
+
+  <% @posts.each do |post| %>
+      <div class="posts-index-item">
+      <%= link_to(post.content,"/posts/#{post.id}") %>
+      <p>p<%=post.point%></p>
+        
+        <%= link_to "/doit/#{post.id}/#{@time}/create",{method: "post"} do %>
+          <div class="btn btn-info">
+            実行
+          </div>
+        <% end %>
+      
+      <% post.doits.where('created_at >= ?', @time).where('created_at <= ?', @time+1).each do |names|%>
+        <!-- できれば以下の行をクラスメソッドにしたい。しかエラーが出たので諦めた -->
+        <%= link_to "/doit/#{names.id}/#{@time}/destroy",{method: "post"} do %>
+          <div class="btn btn-success">
+            <%= @firstname.find_by(id:names.firstname_id).name %>
+          </div>
+        <% end %>
+      <%end%>  
+      
+      </div>
+    <% end %>
+  </div>
+
+
+
+
+
+
+
+
+
+
+ 
