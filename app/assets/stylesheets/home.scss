@@ -64,7 +64,7 @@
   
   /* ヘッダー ================================ */
   header {
-    height: 64px;
+    height: auto;
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -256,7 +256,7 @@
     z-index: 10;
     width: 100%;
     border-radius: 0 0 2px 2px;
-    font-size: 14px;
+    font-size: 30px;
   }
 
   .top-main h2 {
