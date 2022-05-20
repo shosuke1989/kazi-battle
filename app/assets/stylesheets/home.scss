@@ -64,12 +64,25 @@
   
   /* ヘッダー ================================ */
   header {
-    height: auto;
-    position: absolute;
+    height: 64px;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
     z-index: 1;
     width: 100%;
-    background:rgba(62, 205, 198,0.8);
+    background:rgba(62, 205, 198,1);
   }
+
+  footer {
+    height: 64px;
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    z-index: 1;
+    width: 100%;
+    background:rgba(62, 205, 198,1);
+  }
+
   
   .header-logo {
     float: left;

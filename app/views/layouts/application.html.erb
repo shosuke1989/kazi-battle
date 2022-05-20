@@ -9,6 +9,8 @@
   </head>
 
   <body>
+
+
     <header>
       <div class="header-logo">
         <% if @current_user %>
@@ -25,15 +27,6 @@
       <%= link_to("マイページ", "/users/#{@current_user.id}") %>
       </li>
 
-      <li class="hederlist"">
-      <% @firstnames.each do |firstname| %>
-        <%if session[:firstname_id].to_i==firstname.id.to_i%>
-          <%= link_to("☑︎#{firstname.name}","/firstnames/#{firstname.id}/select",{method: "post"}) %>
-        <%else%>
-          <%= link_to("□#{firstname.name}","/firstnames/#{firstname.id}/select",{method: "post"})%>
-        <%end%>
-      <% end %>
-      </li>
 
       
       <li>
@@ -46,18 +39,6 @@
         <%= link_to("ログアウト","/logout",{method: :post})%>
       </li>
 
-      <li>
-      <table>
-        <tr>
-          <td><%= button_to '<', { controller: 'application', action: 'month'}, { method: :get,params: {count: -1} ,class: "btn btn-info"} %></td>
-          <td><%= session[:month].in_time_zone('Tokyo').strftime("%Y年%-m月") %></td>
-          <td><%= button_to '>', { controller: 'application', action: 'month'}, { method: :get,params: {count: 1} ,class: "btn btn-info"} %></td>
-          <td><%= button_to '今月', { controller: 'application', action: 'month'}, { method: :get,params: {count: "今月"} ,class: "btn btn-info"} %></td>
-          <td><%= button_to '全期間', { controller: 'application', action: 'month'}, { method: :get,params: {count: "全期間"} ,class: "btn btn-info"} %></td>
-
-        </tr>
-      </table>
-      </li>
       
 
 
@@ -71,7 +52,6 @@
       <li>
         <%= link_to("ログイン", "/login") %>
       </li>
-      
 
 
     <% end %>
@@ -80,6 +60,51 @@
 
       </ul>
     </header>
+
+    <footer>
+
+  <ul class="header-menus">
+
+  <% if @current_user %>
+
+  <li class="hederlist"">
+  <% @firstnames.each do |firstname| %>
+    <%if session[:firstname_id].to_i==firstname.id.to_i%>
+      <%= link_to("☑︎#{firstname.name}","/firstnames/#{firstname.id}/select",{method: "post"}) %>
+    <%else%>
+      <%= link_to("□#{firstname.name}","/firstnames/#{firstname.id}/select",{method: "post"})%>
+    <%end%>
+  <% end %>
+  </li>
+
+  
+
+  <li>
+  <table>
+    <tr>
+      <td><%= button_to '<', { controller: 'application', action: 'month'}, { method: :get,params: {count: -1} ,class: "btn btn-info"} %></td>
+      <td><%= session[:month].in_time_zone('Tokyo').strftime("%Y年%-m月") %></td>
+      <td><%= button_to '>', { controller: 'application', action: 'month'}, { method: :get,params: {count: 1} ,class: "btn btn-info"} %></td>
+      <td><%= button_to '今月', { controller: 'application', action: 'month'}, { method: :get,params: {count: "今月"} ,class: "btn btn-info"} %></td>
+      <td><%= button_to '全期間', { controller: 'application', action: 'month'}, { method: :get,params: {count: "全期間"} ,class: "btn btn-info"} %></td>
+    </tr>
+  </table>
+  </li>
+  
+
+
+
+
+<% end %>
+
+
+
+  </ul>
+
+    </footer>
+
+
+
     <% if flash[:notice]%>
       <div class="flash">
         <%= flash[:notice]%>
