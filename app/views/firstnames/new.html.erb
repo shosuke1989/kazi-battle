@@ -1,13 +1,13 @@
 <div class="main posts-new">
   <div class="container">
-    <h1 class="form-heading">投稿する</h1>
+    <h1 class="form-heading">ユーザー追加</h1>
     <%= form_tag("/firstnames/#{@user.id}/create") do %>
       <div class="form">
         <div class="form-body">
 
           <p>名前</p>
           <input name="name"><%= @firstname.name%>
-          <input type="submit" value="投稿">
+          <input type="submit" value="追加">
         </div>
       </div>
       <% end %>

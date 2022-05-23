@@ -212,6 +212,7 @@
     background-color: white;
     box-shadow: 0 2px 6px #c1ced7;
   }
+
   
   .form-heading {
     font-weight: 300;
@@ -255,7 +256,14 @@
     margin-top: 8px;
     margin-bottom: 0;
     float: right;
+    font-size: 25px;
+
   }
+
+  .form-heading input[type="submit"] {
+    font-size: 25px;
+  }
+
   
   .form-body:after {
     content: '';
@@ -296,3 +304,6 @@
     color: white;
     text-shadow:1px 0 5px black;
     }
+
+
+
