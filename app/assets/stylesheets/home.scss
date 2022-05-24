@@ -21,7 +21,7 @@
     font-size: 30px;
   }
   
-  h1, h2, h3, h4, h5, h6, p {
+  h1, h2, h3, h4, h5, h6, p,td {
     margin: 0;
     font-size: 30px;
 
@@ -35,6 +35,9 @@
   form input[type="submit"] {
     border: none;
     cursor: pointer;
+    font-size: 30px;
+
+    
   }
   
   /* 共通レイアウト ================================ */
@@ -304,6 +307,8 @@
     color: white;
     text-shadow:1px 0 5px black;
     }
+
+  
 
 
 

@@ -31,6 +31,7 @@
                 </div>
               <%end%>
               <%= link_to("･･･", "/firstnames/#{firstname.id}/#{@user.id}/about") %>
+              <%= link_to(firstname.name, "/firstnames/#{firstname.id}/#{@user.id}/about") %>
               point
               <%= Doit.where(firstname_id:firstname.id,created_at:session[:month].in_time_zone.all_month).sum(:post_point)%>
             </p>  
@@ -38,7 +39,7 @@
       </div>
     <% end %>
 
-    <%= bar_chart @graph, width: "800px", height: "500px" %>
+    <%= bar_chart @graph, width: "500px", height: "500px" %>
 
   </div>   
 </div>
