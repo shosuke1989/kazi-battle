@@ -1,6 +1,29 @@
 <div class="main posts-index">
   <div class="container">
 
+  <h1>ユーザー</h1>
+  <div class="posts-index-item">
+  <% @firstnames.each do |firstname| %>
+      <%if session[:firstname_id].to_i==firstname.id.to_i%>
+        <%= link_to "/firstnames/#{firstname.id}/select",{method: "post"} do %>
+          <div class="btn btn-primary">
+            <p><%= firstname.name %></p>
+          </div>
+        <% end %>
+      <%else%>      
+        <%= link_to "/firstnames/#{firstname.id}/select",{method: "post"} do %>
+          <div class="btn btn-secondary">
+            <p><%= firstname.name %></p>
+          </div>
+        <% end %>
+      <%end%>
+    <% end %>
+    </div>
+    <p>　</p>
+
+
+ 
+
 <table>
   <tr>
     <td><%= button_to '<', { controller: 'posts', action: 'index' }, { method: :get,params: {count: -1, day: @time} ,class: "btn btn-info"} %></td>
