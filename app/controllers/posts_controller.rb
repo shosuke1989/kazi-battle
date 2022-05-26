@@ -6,7 +6,7 @@ class PostsController < ApplicationController
 
 
   def index
-    @posts = Post.where(family_id:@current_user.id).order(created_at: :desc)
+    @posts = Post.where(family_id:@current_user.id).order(updated_at: :desc)
     @firstname=Firstname.all
     @time=Date.today
     if  params[:day]!= nil

@@ -13,6 +13,9 @@ class DoitController < ApplicationController
         point=Post.find_by(id:params[:id]).point
         @doit = Doit.new(firstname_id: @current_name.id, post_id: params[:id],user_id:@current_user.id,post_point:point,created_at: params[:day])
         @doit.save
+
+        post=Post.find_by(id:params[:id])
+        post.touch
       end
       flash[:day]="#{params[:day]}"
       redirect_to "/posts/index"
