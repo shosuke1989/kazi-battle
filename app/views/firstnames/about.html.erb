@@ -2,26 +2,39 @@
   <div class="container">
     <div class="container">
       <h1 class="form-heading"></h1>
-        <div class="form">
-          <div class="form-body">
-          <p><%= @firstname.name %></p>
-          <%= link_to("編集", "/firstnames/#{@firstname.id}/edit") %>
-          <%= link_to("削除", "/firstnames/#{@firstname.id}/destroy",{method: "post"}) %>
-
-
+      <div class="form">
+        <div class="form-body">
+          <div class="form-name">
+            <p><%= @firstname.name %></p>
           </div>
-        </div>
-    </div>
+          <p>　</p>
+
+            <div class="post-menus">
+              <%= link_to("編集", "/firstnames/#{@firstname.id}/edit") %>　
+              <%= link_to("削除", "/firstnames/#{@firstname.id}/destroy",{method: "post"}) %>
+            </div>
+          </div>
+      </div>
   
-    <h1 class="form-heading"></h1>
-
-
-
-      <%= bar_chart @graph, width: "500px", height: "500px"%>
-
-      
+      <p>　</p>
+      <li>
+        <table>
+          <tr>
+            <td><%= button_to '<', { controller: 'application', action: 'month'}, { method: :get,params: {count: -1} ,class: "btn btn-info"} %></td>
+            <td><%= session[:month].in_time_zone('Tokyo').strftime("%Y年%-m月") %></td>
+            <td><%= button_to '>', { controller: 'application', action: 'month'}, { method: :get,params: {count: 1} ,class: "btn btn-info"} %></td>
+            <td><%= button_to '今月', { controller: 'application', action: 'month'}, { method: :get,params: {count: "今月"} ,class: "btn btn-link"} %></td>
+            <td><%= button_to '全期間', { controller: 'application', action: 'month'}, { method: :get,params: {count: "全期間"} ,class: "btn btn-success"} %></td>
+          </tr>
+        </table>
+      </li>
+  
+      <div class="form">
+        <div class="form-body">
+          <%= bar_chart @graph, width: "500px", height: "500px"%>
+        </div>
+      </div>
     </div>
-
-    
+  </div>
 </div>
 

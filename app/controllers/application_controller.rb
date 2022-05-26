@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
       if params[:count]=="今月"
         session[:month]=Date.today
       elsif params[:count]=="全期間"
-        session[:month]=Date.today
+        session[:month]="全期間"
       end
       
       redirect_to request.referer

@@ -1,15 +1,8 @@
 <div class="main posts-show">
   <div class="container">
     <div class="posts-show-item">
-      <p>家事
-        <%=@post.content %>
-      </p>
-      <p>ポイント
-        <%=@post.point %>
-      </p>
-      <div class="post-time">
-        <%=@post.created_at %>
-      </div>
+      <p><%=@post.content %></p>
+      <p><%=@post.point %>点</p>
       
       <%if @post.family_id==@current_user.id %>
       <div class="post-menus">
@@ -19,8 +12,32 @@
       <% end%>
 
 
+      
 
     </div>
+
+    <p>　</p>
+    <li>
+      <table>
+        <tr>
+          <td><%= button_to '<', { controller: 'application', action: 'month'}, { method: :get,params: {count: -1} ,class: "btn btn-info"} %></td>
+          <td><%= session[:month].in_time_zone('Tokyo').strftime("%Y年%-m月") %></td>
+          <td><%= button_to '>', { controller: 'application', action: 'month'}, { method: :get,params: {count: 1} ,class: "btn btn-info"} %></td>
+          <td><%= button_to '今月', { controller: 'application', action: 'month'}, { method: :get,params: {count: "今月"} ,class: "btn btn-link"} %></td>
+          <td><%= button_to '全期間', { controller: 'application', action: 'month'}, { method: :get,params: {count: "全期間"} ,class: "btn btn-success"} %></td>
+        </tr>
+      </table>
+    </li>
+
+    <div class="form">
+        <div class="form-body">
+        <%= bar_chart @graph, width: "500px", height: "500px" %>
+
+        </div>
+    </div>
+
+
+
   </div>
 </div>
 

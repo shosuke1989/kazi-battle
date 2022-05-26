@@ -16,7 +16,14 @@ class FirstnamesController < ApplicationController
     @firstname=Firstname.find_by(id: params[:id])
     
     @graph={}
-    @doits=Doit.group(:post_id).where(firstname_id: params[:id],created_at:session[:month].in_time_zone.all_month).sum(:post_point)
+    
+    if session[:month]=="全期間"
+      session[:month]=Date.today
+      @doits=Doit.group(:post_id).where(firstname_id: params[:id]).sum(:post_point)
+    else
+      @doits=Doit.group(:post_id).where(firstname_id: params[:id],created_at:session[:month].in_time_zone.all_month).sum(:post_point)
+    end
+
     keys=@doits.keys
     values=@doits.values
     keys.zip(values).each do |key,value|

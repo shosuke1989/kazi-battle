@@ -26,6 +26,16 @@ class PostsController < ApplicationController
 
   def show
     @post=Post.find_by(id:params[:id])
+    @graph={}
+    @firstnames.each do |firstname|
+      if session[:month]=="全期間"
+        session[:month]=Date.today
+        @graph.store(firstname.name, Doit.where(post_id:@post.id,firstname_id:firstname.id).sum(:post_point))
+      else
+        @graph.store(firstname.name, Doit.where(post_id:@post.id,firstname_id:firstname.id,created_at:session[:month].in_time_zone.all_month).sum(:post_point))
+      end
+    end
+
   end
 
   def new
