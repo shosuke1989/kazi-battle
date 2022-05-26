@@ -46,7 +46,7 @@ class PostsController < ApplicationController
     @post=Post.new(content:params[:content],point:params[:point],family_id: @current_user.id)
     if @post.save
       flash[:notice]="家事内容を作成しました"
-      redirect_to("/posts/index")
+      redirect_to("/posts/new")
     else
       render("posts/new")
     end
