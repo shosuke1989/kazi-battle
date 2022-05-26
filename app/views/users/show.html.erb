@@ -15,31 +15,34 @@
 
 
 
-    <% @firstnames.each do |firstname| %>
-      <div class="form">
-          <div class="form-body">
-            <p>
-              <%if session[:firstname_id].to_i==firstname.id.to_i%>
-                <div class="select_user">
-                  <div class=check>☑︎</div>
-                  <div class=checklink><%= link_to(firstname.name,"/firstnames/#{firstname.id}/select",{method: "post"}) %></div>
-                </div>
-              <%else%>
-                <div class=non_select_user>
-                  <div class=checksikaku>□</div>
-                  <div class=checklink><%= link_to(firstname.name,"/firstnames/#{firstname.id}/select",{method: "post"})%></div>
-                </div>
-              <%end%>
-              <%= link_to("･･･", "/firstnames/#{firstname.id}/#{@user.id}/about") %>
-              <%= link_to(firstname.name, "/firstnames/#{firstname.id}/#{@user.id}/about") %>
-              point
-              <%= Doit.where(firstname_id:firstname.id,created_at:session[:month].in_time_zone.all_month).sum(:post_point)%>
-            </p>  
-          </div>
+    <div class="form">
+      <div class="form-body">
+        <% @firstnames.each do |firstname| %>
+          <%= link_to(firstname.name, "/firstnames/#{firstname.id}/#{@user.id}/about") %>　 
+        <% end %>
       </div>
-    <% end %>
+    </div>
+    <p>　</p>
+    <li>
+      <table>
+        <tr>
+          <td><%= button_to '<', { controller: 'application', action: 'month'}, { method: :get,params: {count: -1} ,class: "btn btn-info"} %></td>
+          <td><%= session[:month].in_time_zone('Tokyo').strftime("%Y年%-m月") %></td>
+          <td><%= button_to '>', { controller: 'application', action: 'month'}, { method: :get,params: {count: 1} ,class: "btn btn-info"} %></td>
+          <td><%= button_to '今月', { controller: 'application', action: 'month'}, { method: :get,params: {count: "今月"} ,class: "btn btn-link"} %></td>
+          <td><%= button_to '全期間', { controller: 'application', action: 'month'}, { method: :get,params: {count: "全期間"} ,class: "btn btn-success"} %></td>
+        </tr>
+      </table>
+    </li>
 
-    <%= bar_chart @graph, width: "500px", height: "500px" %>
+    <div class="form">
+        <div class="form-body">
+        <%= bar_chart @graph, width: "500px", height: "500px" %>
+
+        </div>
+    </div>
+
+
 
   </div>   
 </div>
