@@ -37,6 +37,21 @@ class UsersController < ApplicationController
 
     if @user.save 
       session[:user_id]=@user.id
+      @firstname=Firstname.new(name: "ママ",user_id: @user.id)
+      @firstname.save
+      @firstname=Firstname.new(name: "パパ",user_id: @user.id)
+      @firstname.save
+      @post=Post.new(content:"掃除",point:1,family_id: @user.id)
+      @post.save
+      @post=Post.new(content:"洗濯",point:1,family_id: @user.id)
+      @post.save
+      @post=Post.new(content:"料理",point:1,family_id: @user.id)
+      @post.save
+      @post=Post.new(content:"皿洗い",point:1,family_id: @user.id)
+      @post.save
+      @post=Post.new(content:"ゴミ出し",point:1,family_id: @user.id)
+      @post.save
+
       flash[:notice]="ユーザー登録が完了しました"
       redirect_to("/users/#{@user.id}")
     else
@@ -86,6 +101,7 @@ class UsersController < ApplicationController
 
   def logout
     session[:user_id]=nil
+    session[:firstname_id]=nil
     flash[:notice]="ログアウトしました"
     redirect_to("/login")
   end
